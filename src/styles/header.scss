@@ -1,0 +1,75 @@
+// header
+.MuiAppBar-root {
+	background-image: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.7),
+		rgba(255, 255, 255, 0.3)
+	);
+	max-width: 100vw;
+	max-height: 30vh;
+	overflow-x: auto;
+	box-shadow: 0 3px 20px rgba(0, 0, 0, 100%);
+
+	a {
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: -100px;
+			top: -8px;
+			width: 25px;
+			height: 50px;
+			background-color: rgba(255, 255, 255, 0.5);
+			transform: skewX(45deg);
+			transition: all 0.4s;
+		}
+
+		&:hover::before {
+			left: 150%;
+		}
+	}
+}
+
+// mobile drawer
+.header__mobile-navbar.MuiDrawer-root .MuiPaper-root {
+	display: block;
+	width: 300px;
+	background-image: linear-gradient(
+		to bottom right,
+		rgba(255, 255, 255, 1),
+		rgba(255, 255, 255, 0.6)
+	);
+	background-color: transparent;
+
+	.image-wrapper {
+		text-align: center;
+		margin-bottom: 40px;
+		margin-right: 15px;
+		filter: opacity(0.65);
+
+		img {
+			width: 60%;
+			transition: all 0.3s;
+
+			&:hover {
+				transform: translateY(-10px);
+			}
+		}
+	}
+}
+
+// cart dropdown
+.cart__dropdown {
+	&::after {
+		content: "";
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		transform: rotateZ(45deg);
+		right: 2rem;
+		top: -4px;
+		background: white;
+	}
+}

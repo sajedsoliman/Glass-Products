@@ -1,0 +1,1 @@
+const headerLinks = ["Home", "Products", "Add Product", "Wish List", "Cart"]
