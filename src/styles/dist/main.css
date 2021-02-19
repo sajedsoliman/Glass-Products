@@ -90,7 +90,6 @@ body::-webkit-scrollbar {
 .ScrollbarsCustom {
   width: 100%;
   min-height: 300px;
-  max-height: 320px;
 }
 .ScrollbarsCustom .ScrollbarsCustom-Wrapper {
   width: 100%;
@@ -98,6 +97,7 @@ body::-webkit-scrollbar {
 }
 .ScrollbarsCustom .ScrollbarsCustom-Content {
   padding: 0 !important;
+  height: 100%;
 }
 .ScrollbarsCustom .ScrollbarsCustom-TrackY {
   position: absolute;

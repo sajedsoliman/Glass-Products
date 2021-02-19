@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 // matarial components
 import IconButton from '@material-ui/core/IconButton';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -57,6 +59,10 @@ const useStyles = makeStyles(theme => ({
 export default function MobileNavbar({ open, onClose, onOpen }) {
     const classes = useStyles()
 
+    const handleLinkClick = () => {
+        onClose()
+    }
+
     return (
         <SwipeableDrawer open={open}
             onClose={onClose}
@@ -75,11 +81,11 @@ export default function MobileNavbar({ open, onClose, onOpen }) {
                         </IconButton>
                     </div>
                     <ul className={classes.linksMenu}>
-                        <li><Link to="/"><i className="fas fa-home" />Home</Link></li>
-                        <li><Link to="/products"><i className="fas fa-box-open" />Products</Link></li>
-                        <li><Link to="/add-product"><AddCircleIcon fontSize="small" />Add Product</Link></li>
-                        <li><Link to="/wish-list"><svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24"><path d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z" /></svg>Wish List</Link></li>
-                        <li><Link to="/cart" underline="none"><AddShoppingCartIcon />Cart</Link></li>
+                        <li><Link onClick={handleLinkClick} to="/"><i className="fas fa-home" />Home</Link></li>
+                        <li><Link onClick={handleLinkClick} to="/products"><i className="fas fa-box-open" />Products</Link></li>
+                        <li><Link onClick={handleLinkClick} to="/add-product"><AddCircleIcon fontSize="small" />Add Product</Link></li>
+                        <li><Link onClick={handleLinkClick} to="/wish-list"><svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24"><path d="M18 1l-6 4-6-4-6 5v7l12 10 12-10v-7z" /></svg>Wish List</Link></li>
+                        <li><Link onClick={handleLinkClick} to="/cart" underline="none"><AddShoppingCartIcon />Cart</Link></li>
                     </ul>
                 </div>
                 <div className="down-section image-wrapper">

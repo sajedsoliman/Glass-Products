@@ -35,11 +35,11 @@ import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 // jss styles
 const useStyles = makeStyles(theme => ({
     productCard: {
-        maxHeight: 320,
+        maxHeight: 350,
         minHeight: 300,
     },
     cardImg: {
-        paddingTop: "50%",
+        paddingTop: 135,
         transition: "all .3s",
         backgroundPosition: "center top -20px",
         [theme.breakpoints.down("sm")]: {
@@ -66,9 +66,19 @@ const useStyles = makeStyles(theme => ({
     productActions: {
         padding: "0 10px",
         justifyContent: "space-between",
+        marginTop: "auto"
     },
     collapsedContent: {
         paddingBottom: "10px !important"
+    },
+    contentWrapper: {
+        height: "calc(100% - 135px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        [theme.breakpoints.between(380, 509)]: {
+            height: "calc(100% - 160px)",
+        }
     }
 }))
 
@@ -140,7 +150,7 @@ export default function ProductBox({ product, needCartAddition, needFavoriteAddi
 
     return (
         <Fade in={fadeEffect}>
-            <Grid item xs={12} sm={6} md={3} xl={3} key={id}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
                 <Card className={classes.productCard} variant="elevation" raised>
                     <Scrollbar noDefaultStyles>
                         {/* Product cover */}
@@ -149,48 +159,50 @@ export default function ProductBox({ product, needCartAddition, needFavoriteAddi
                             className={classes.cardImg}
                         />
 
-                        {/* Product Content (title + price + controls) */}
-                        <CardContent className={classes.cardContent}>
-                            <Typography className={classes.productPrice} color='error'>{price}$</Typography>
-                            <Typography style={{ fontSize: title.length > 47 ? 15 : 17 }} className={classes.productTitle} variant="h6">
-                                {title}
-                                {needFavoriteAddition ?
-                                    <IconButton color={belongFavorites ? "secondary" : "default"} onClick={() =>
-                                        handleLocalStorage(product, setFavoriteProducts, "wish list")}
-                                    >
-                                        <DarkTooltip title={belongFavorites ? "Remove" : "Add"}>
-                                            {favoriteIcon}
-                                        </DarkTooltip>
-                                    </IconButton> : null}
-                            </Typography>
-                        </CardContent>
+                        <div className={classes.contentWrapper}>
+                            {/* Product Content (title + price + controls) */}
+                            <CardContent className={classes.cardContent}>
+                                <Typography className={classes.productPrice} color='error'>{price}$</Typography>
+                                <Typography style={{ fontSize: title.length > 40 ? 15 : 17 }} className={classes.productTitle} variant="h6">
+                                    {title}
+                                    {needFavoriteAddition ?
+                                        <IconButton color={belongFavorites ? "secondary" : "default"} onClick={() =>
+                                            handleLocalStorage(product, setFavoriteProducts, "wish list")}
+                                        >
+                                            <DarkTooltip title={belongFavorites ? "Remove" : "Add"}>
+                                                {favoriteIcon}
+                                            </DarkTooltip>
+                                        </IconButton> : null}
+                                </Typography>
+                            </CardContent>
 
-                        {/* Product Actions (buy, more info, add to cart and etc...) */}
-                        <CardActions className={classes.productActions}>
-                            <div>
-                                <Button variant="contained"
-                                    color="secondary"
-                                    size="small"
-                                    component={Link}
-                                    to={`/products/${id}`}
-                                    // href={`/products/${id}`}
-                                    startIcon={<ShoppingBasketIcon />}>Buy Now</Button>
-                                <Tooltip placement="top" title="More Info">
-                                    <IconButton onClick={handleExpandOpen}>
-                                        {expandedDescription ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-                            {needCartAddition ?
-                                <DarkTooltip title={belongCart ? "Remove from cart" : "Add to cart"}>
-                                    <IconButton
+                            {/* Product Actions (buy, more info, add to cart and etc...) */}
+                            <CardActions className={classes.productActions}>
+                                <div>
+                                    <Button variant="contained"
                                         color="secondary"
-                                        onClick={() => handleLocalStorage(product, setCartProducts, "cart")}>
-                                        {cartIcon}
-                                    </IconButton>
-                                </DarkTooltip> : null
-                            }
-                        </CardActions>
+                                        size="small"
+                                        component={Link}
+                                        to={`/products/${id}`}
+                                        // href={`/products/${id}`}
+                                        startIcon={<ShoppingBasketIcon />}>Buy Now</Button>
+                                    <Tooltip placement="top" title="More Info">
+                                        <IconButton onClick={handleExpandOpen}>
+                                            {expandedDescription ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
+                                {needCartAddition ?
+                                    <DarkTooltip title={belongCart ? "Remove from cart" : "Add to cart"}>
+                                        <IconButton
+                                            color="secondary"
+                                            onClick={() => handleLocalStorage(product, setCartProducts, "cart")}>
+                                            {cartIcon}
+                                        </IconButton>
+                                    </DarkTooltip> : null
+                                }
+                            </CardActions>
+                        </div>
                         {/* More Info about the products collapable area */}
                         <Collapse in={expandedDescription}>
                             <CardContent className={classes.collapsedContent}>

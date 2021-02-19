@@ -33,7 +33,9 @@ export default function CartPage(props) {
     const [page, setPage] = useState(1)
 
     // props destructuring
-    const { cartProducts, setCartProducts, handleAlert } = props
+    const { cartProducts, setCartProducts, handleAlert, setDocTitle } = props
+
+    setDocTitle("Cart")
 
     const classes = useStyles()
 

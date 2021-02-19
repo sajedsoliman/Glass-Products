@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 
 // others
 import productInfo from "./serverFunctions"
@@ -13,19 +13,6 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import makeStyles from "@material-ui/core/styles/makeStyles"
-
-// icons
-
-// filepond
-import { FilePond, registerPlugin } from "react-filepond"
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-import 'filepond/dist/filepond.min.css';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
-registerPlugin(FilePondPluginFileEncode, FilePondPluginFileValidateType, FilePondPluginImagePreview);
-const mimiTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif"];
 
 // jss styles
 const useStyles = makeStyles(theme => ({
@@ -46,13 +33,26 @@ const useStyles = makeStyles(theme => ({
         border: "1px solid rgb(0 0 0 / 23%)",
         borderRadius: 5,
         padding: 10,
-        marginTop: 15
+        marginTop: 15,
+
+        "& .filepond--item": {
+            width: "calc(33.333% - 0.5em)",
+            minHeight: 146,
+            maxHeight: 146
+        },
+
+        "& .filepond--panel-root": {
+            background: "none",
+            backgroundColor: "transparent",
+        }
     }
 }))
 
 export default function AddProduct(props) {
     // props destructuring
-    const { addProductHandler } = props
+    const { addProductHandler, setDocTitle } = props
+
+    setDocTitle("Add Product")
 
     const classes = useStyles()
 

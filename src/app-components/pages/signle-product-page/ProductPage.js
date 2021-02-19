@@ -7,8 +7,6 @@ import { useParams } from "react-router-dom"
 import AppPage from "../../../common-components/AppPage"
 import ProductImagesSide from "./ProductImagesSide"
 import ProductInfoSide from "./ProductInfoSide"
-import PopUp from "../../../common-components/PopUp"
-import FullScreenSlider from "./FullScreenSlider"
 
 // material
 import Grid from "@material-ui/core/Grid"
@@ -19,18 +17,17 @@ import "../../../styles/dist/product-page-styles.min.css"
 
 export default function ProductPage({ setCartProducts, cartProducts }) {
     const [product, setProduct] = useState()
-    const [fullscreenSlider, setFullscreenSlider] = useState(false)
 
     // destructure params
     const { id } = useParams()
 
     // fetch current product
-    useEffect(async () => {
-        // fetch the product
-        const res = await fetch(`http://localhost:5500/products/${id}`)
-        const data = await res.json();
+    useEffect(() => {
+        // get the product from localStorage
+        const allProducts = JSON.parse(localStorage.getItem("all-products"))
+        const routedProduct = allProducts.find(product => product.id == id)
 
-        setProduct(data)
+        setProduct(routedProduct)
     }, [])
 
     const appPageProps = {
@@ -45,20 +42,7 @@ export default function ProductPage({ setCartProducts, cartProducts }) {
     if (product) {
         imagesSliderProps = {
             images: [product.imgSrc, ...product.images],
-            setFullscreenSlider
         }
-    }
-
-    // popup props
-    const fullscreenSliderProps = {
-        formFunc: {
-            title: "Product Images Fullscreen Slider",
-            isOpen: fullscreenSlider
-        },
-        closeHandle: () => setFullscreenSlider(false),
-        maxWidth: "lg",
-        dividers: false,
-        contentStyles: "fullscreen-dialog-content"
     }
 
     return (
@@ -73,9 +57,6 @@ export default function ProductPage({ setCartProducts, cartProducts }) {
                             <ProductInfoSide product={product} cartProducts={cartProducts} setCartProducts={setCartProducts} />
                         </Grid>
                     </Grid>
-                    <PopUp {...fullscreenSliderProps}>
-                        <FullScreenSlider sliderHeight={"80vh"} {...imagesSliderProps} />
-                    </PopUp>
                 </AppPage>
                 : null}
         </>

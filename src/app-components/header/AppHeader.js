@@ -8,7 +8,7 @@ import NavbarNav from "./NavbarNav"
 import CartDropdown from './CartDropdown'
 
 
-// matarial components
+// material components
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
@@ -40,9 +40,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function AppHeader({ cartProducts, setCartProducts, updateQuantity }) {
+export default function AppHeader(props) {
     const [mobileNav, setMobileNav] = useState(false)
     const [cartOpen, setCartOpen] = useState(false)
+
+    // destructuring props
+    const { cartProducts, setCartProducts, updateQuantity } = props
 
     // handle cart open when products change
     useEffect(() => {
@@ -56,7 +59,8 @@ export default function AppHeader({ cartProducts, setCartProducts, updateQuantit
         setMobileNav(true)
     }
 
-    // handle closeing mobile navbar
+
+    // handle closing mobile navbar
     const handleMobileNavClose = () => {
         setMobileNav(false)
     }
@@ -72,14 +76,14 @@ export default function AppHeader({ cartProducts, setCartProducts, updateQuantit
                     <NavbarNav />
                 </Grid>
                 <Grid item xs={5} sm={12} md={4}>
-                    {/* Header Controls's toolbar */}
+                    {/* Header Controls toolbar */}
                     <Toolbar className={classes.headerControls}>
-                        {/* because it's (drawer) transparent the controls will appear behind them. so i did this to aviod that problem */}
+                        {/* because it's (drawer) transparent the controls will appear behind them. so i did this to avoid that problem */}
                         {!mobileNav ? <HeaderControls cartProducts={cartProducts} cartOpen={cartOpen} setCartOpen={setCartOpen} openMobileNavHandler={handleMobileNavOpen} /> : null}
                     </Toolbar>
                 </Grid>
             </Grid>
-            {/* narrow secreens (mobile screens) header's Drawer */}
+            {/* narrow screens (mobile screens) header's Drawer */}
             <MobileNavbar open={mobileNav} onClose={handleMobileNavClose} onOpen={handleMobileNavOpen} />
 
             {/* card dropdown */}

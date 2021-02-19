@@ -10,16 +10,28 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 // jss styles
 const useStyles = makeStyles(theme => ({
     wrapper: {
-        height: 420,
         borderRadius: 10,
     },
     card: {
         width: "100%",
-        minHeight: "100%",
         backgroundColor: "transparent",
         textShadow: "0 0 2px #00b8ff40",
         display: "flex",
         flexDirection: "column",
+        minHeight: 420,
+
+        "& .MuiCardContent-root .MuiTypography-root": {
+            [theme.breakpoints.down("xs")]: {
+                fontSize: 15
+            }
+        }
+    },
+    header: {
+        "& .MuiCardHeader-title": {
+            [theme.breakpoints.down("xs")]: {
+                fontSize: 22
+            }
+        }
     },
     price: {
         textShadow: "1.5px 1.5px 2px #ff08087a"
@@ -64,7 +76,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProductInfoSide({ product, cartProducts, setCartProducts }) {
     // destructuring the product
-    const { id, title, price, description } = product
+    const { id, title, price, description, buyingLink } = product
 
     const classes = useStyles()
 
@@ -92,7 +104,7 @@ export default function ProductInfoSide({ product, cartProducts, setCartProducts
                     <Typography>{description}</Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <Button className={classes.buyNowBtn}>Buy Now</Button>
+                    <Button href={buyingLink} target="_blank" className={classes.buyNowBtn}>Buy Now</Button>
                     <Button
                         disabled={belongCart}
                         className={classes.addToCartButton}

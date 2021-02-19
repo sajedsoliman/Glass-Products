@@ -1,14 +1,16 @@
 // components
 import DropDown from '../../common-components/Dropdown'
 import CartProduct from './CartProduct'
+import DarkTooltip from '../../common-components/DarkTooltip'
 
 // material components
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Slide from '@material-ui/core/Slide';
+import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { useState, useEffect, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Typography } from '@material-ui/core';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 // jss Styles
 const useStyles = makeStyles(theme => ({
@@ -22,6 +24,9 @@ const useStyles = makeStyles(theme => ({
         "& span": {
             color: theme.palette.secondary.main
         }
+    },
+    clearAllbtn: {
+        marginBottom: 2
     }
 }))
 
@@ -30,6 +35,12 @@ export default function CartDropdown(props) {
 
     // props destructuring
     const { products, onClose, open, setCartProducts, updateQuantity } = props
+
+    // clear all cart products handling
+    const handleClearAll = () => {
+        setCartProducts([], true)
+    }
+
 
     // map through products
     const mappedProducts = products.map(product => {
@@ -53,7 +64,13 @@ export default function CartDropdown(props) {
             <List>
                 {mappedProducts}
             </List>
-            <Typography className={classes.totalPrice}>Total Price: <span>{totalPrice}</span>$</Typography>
+            <Typography className={classes.totalPrice}>Total Price: <span>{totalPrice}</span>$ &nbsp;
+                <DarkTooltip placement="right" title="Clear All">
+                    <IconButton className={classes.clearAllbtn} onClick={handleClearAll}>
+                        <DeleteForeverIcon />
+                    </IconButton>
+                </DarkTooltip>
+            </Typography>
         </DropDown>
     )
 }

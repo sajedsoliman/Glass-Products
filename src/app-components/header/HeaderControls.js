@@ -50,7 +50,7 @@ export default function HeaderControls({ openMobileNavHandler, cartProducts, car
                     </Badge>
                 </IconButton>
                 <Typography variant="srOnly">
-                    <Link ref={linkToCartRef} to="cart">hidden cart link</Link>
+                    <Link ref={linkToCartRef} to="/cart">hidden cart link</Link>
                 </Typography>
             </div>
         </>

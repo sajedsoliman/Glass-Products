@@ -85,7 +85,7 @@ body::-webkit-scrollbar {
 	}
 }
 
-.makeStyles-filePondMultiWrapper-14 {
+/* .makeStyles-filePondMultiWrapper-14 {
 	.filepond--item {
 		width: calc(33.333% - 0.5em);
 		min-height: 146px;
@@ -96,7 +96,7 @@ body::-webkit-scrollbar {
 		background: none;
 		background-color: transparent;
 	}
-}
+} */
 
 // end
 
@@ -113,7 +113,6 @@ body::-webkit-scrollbar {
 .ScrollbarsCustom {
 	width: 100%;
 	min-height: 300px;
-	max-height: 320px;
 
 	.ScrollbarsCustom-Wrapper {
 		width: 100%;
@@ -122,6 +121,7 @@ body::-webkit-scrollbar {
 
 	.ScrollbarsCustom-Content {
 		padding: 0 !important;
+		height: 100%;
 	}
 
 	.ScrollbarsCustom-TrackY {

@@ -11,9 +11,11 @@ import { Slide } from '@material-ui/core'
 // jss styles
 const useStyles = makeStyles(theme => ({}))
 
-export default function WishListPage({ products, setFavoriteProducts, handleAlert }) {
+export default function WishListPage({ products, setFavoriteProducts, handleAlert, setDocTitle }) {
     const [search, setSearch] = useState("")
     const [page, setPage] = useState(1)
+
+    setDocTitle("Wish List")
 
     const classes = useStyles()
 

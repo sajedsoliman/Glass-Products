@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useCallback, useRef, forwardRef } from "react"
 
 // material components
 import { Slide, Typography } from '@material-ui/core';
@@ -29,20 +29,27 @@ export default function Dropdown(props) {
     // props destructuring
     const { open, transitionDirection, className, children, title, onClose } = props
 
-    // to close the cart whem escape btn or arrowUp btn is fired
+    const dropdownRef = useRef()
+    const clearAllBtn = useRef()
+
+    const onKeyDown = useCallback((e) => {
+        if (e.key == "Escape") {
+            onClose()
+        }
+    }, [])
+
+    // to close the cart when escape btn or arrowUp btn is fired
     useEffect(() => {
         if (open) {
-            document.addEventListener("keydown", (e) => {
-                if (e.key == "Escape") {
-                    onClose()
-                }
-            })
+            window.addEventListener("keydown", onKeyDown)
+        } else {
+            window.removeEventListener("keydown", onKeyDown)
         }
     }, [open])
 
     return (
         <Slide in={open} direction={transitionDirection}>
-            <Paper variant="elevation" elevation={10} className={`${classes.cartWrapper} ${className}`}>
+            <Paper ref={dropdownRef} variant="elevation" elevation={10} className={`${classes.cartWrapper} ${className}`}>
                 <Typography className={classes.title} variant="h6">{title}</Typography>
                 {children}
             </Paper>

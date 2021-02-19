@@ -32,9 +32,11 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function ProductsPage({ setCartProducts, cartProducts, favoriteProducts, setFavoriteProducts, products, handleAlert }) {
+export default function ProductsPage({ setDocTitle, setCartProducts, cartProducts, favoriteProducts, setFavoriteProducts, products, handleAlert }) {
     const [search, setSearch] = useState("")
     const [page, setPage] = useState(1)
+
+    setDocTitle("Glass Products")
 
     return (
         <AppPage

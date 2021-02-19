@@ -38,29 +38,43 @@ const useStyles = makeStyles(theme => ({
         backgroundImage: "linear-gradient(to right bottom,rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.3))",
         borderRadius: 8,
         paddingBottom: 60,
-        position: "relative"
+        position: "relative",
     },
     gridContainer: {
-        "@media (min-width: 400px) and (max-width: 590px)": {
+        "@media (min-width: 510px) and (max-width: 600px)": {
             "& .MuiGrid-item": {
                 flexBasis: "50%",
                 padding: 6,
-
-                "& .MuiPaper-root": {
-                    minHeight: 260
-                }
             }
         },
-        [theme.breakpoints.between(750, 1200)]: {
+        [theme.breakpoints.between(850, 1200)]: {
             "& .MuiGrid-item": {
                 flexBasis: "33.33333%",
                 padding: 6,
 
                 "& .MuiPaper-root": {
-                    minHeight: 265,
+                    minHeight: 310,
 
                     "& .ScrollbarsCustom": {
-                        minHeight: 265
+                        minHeight: 310
+                    }
+                }
+            }
+        },
+        [theme.breakpoints.between(380, 509)]: {
+            "& .MuiGrid-item": {
+
+                "& .MuiPaper-root": {
+                    minHeight: 320,
+                    width: "80%",
+                    margin: "auto",
+
+                    "& .MuiCardMedia-root": {
+                        height: 160
+                    },
+
+                    "& .ScrollbarsCustom": {
+                        minHeight: 320
                     }
                 }
             }

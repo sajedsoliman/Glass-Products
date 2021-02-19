@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom"
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-// matarial components
+
+// other info
+import testProducts from "./testProducts"
 
 // compoennts
 import AppHeader from './app-components/header/AppHeader'
@@ -11,24 +13,25 @@ import ProductPage from './app-components/pages/signle-product-page/ProductPage'
 import AddProduct from './app-components/pages/add-product-page/AddProduct'
 import WishListPage from './app-components/pages/wish-list-page/WishListPage'
 import useLocalStorage from "./common-components/useLocalStorage"
-import useFetch from "./common-components/useFetch"
 import useAlert from './common-components/useAlert'
 import CartPage from './app-components/pages/cart-page/CartPage'
 
 // styles
 import "normalize.css"
 import "./styles/dist/main.min.css"
-import { Fade, Slide } from '@material-ui/core'
 
 function App() {
     const [cartProducts, setCartProducts, updateQuantity] = useLocalStorage("in-cart-products")
     const [favoriteProducts, setFavoriteProducts] = useLocalStorage("favorite-products")
+    const [docTitle, setDocTitle] = useState("Glass Products")
 
-    // useFetch imports
-    const {
-        values: products,
-        addItem
-    } = useFetch("http://localhost:5500/products")
+    // change document title useEffect
+    useEffect(() => {
+        document.title = docTitle
+    }, [docTitle])
+
+    // products from localStorage
+    const [products, addItem] = useLocalStorage("all-products", testProducts)
 
     // use notification
     const {
@@ -39,18 +42,17 @@ function App() {
     } = useAlert()
 
     // handle notification message
-    const handleAlert = (serverity, msg) => {
-        processSettings(serverity, msg)
+    const handleAlert = (severity, msg) => {
+        processSettings(severity, msg)
     }
-
 
     // add product handling
     const handleAddProduct = (product) => {
         handleAlert("success", "Product Created")
-        addItem(product)
+        addItem({ ...product, id: new Date().getTime() })
     }
 
-    const productsPage = <ProductsPage handleAlert={handleAlert} favoriteProducts={favoriteProducts} setFavoriteProducts={setFavoriteProducts} products={products} setCartProducts={setCartProducts} cartProducts={cartProducts} />
+    const productsPage = <ProductsPage setDocTitle={setDocTitle} handleAlert={handleAlert} favoriteProducts={favoriteProducts} setFavoriteProducts={setFavoriteProducts} products={products} setCartProducts={setCartProducts} cartProducts={cartProducts} />
 
     return (
         <Router>
@@ -67,14 +69,14 @@ function App() {
 
                 <Route
                     path="/add-product"
-                    render={(props) => <AddProduct addProductHandler={handleAddProduct} />} />
+                    render={(props) => <AddProduct setDocTitle={setDocTitle} addProductHandler={handleAddProduct} />} />
 
                 <TransitionGroup>
                     <CSSTransition classNames="fade" timeout={300}>
                         <Switch >
                             <Route
                                 path="/wish-list"
-                                render={(props) => <WishListPage handleAlert={handleAlert} products={favoriteProducts} setFavoriteProducts={setFavoriteProducts} />} />
+                                render={(props) => <WishListPage setDocTitle={setDocTitle} handleAlert={handleAlert} products={favoriteProducts} setFavoriteProducts={setFavoriteProducts} />} />
                         </Switch>
                     </CSSTransition>
                 </TransitionGroup>
@@ -82,7 +84,7 @@ function App() {
 
                 <Route
                     path="/cart"
-                    render={(props) => <CartPage cartProducts={cartProducts} setCartProducts={setCartProducts} handleAlert={handleAlert} />}
+                    render={(props) => <CartPage setDocTitle={setDocTitle} cartProducts={cartProducts} setCartProducts={setCartProducts} handleAlert={handleAlert} />}
                 />
 
                 <Switch>
